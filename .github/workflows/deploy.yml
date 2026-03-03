@@ -1,0 +1,54 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 6 * * 1'  # Monday 6am UTC
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+
+      # Restore cached gps.yaml so AI taglines persist between runs
+      # Key is unique per run so we always save fresh; restore-keys prefix
+      # matches the most recent previous run's cache.
+      - name: Restore cached GPS data
+        uses: actions/cache@v4
+        with:
+          path: src/content/gps/gps.yaml
+          key: gps-data-${{ github.run_id }}
+          restore-keys: gps-data-
+
+      - name: Fetch PlayerData GPS stats
+        env:
+          PLAYERDATA_EMAIL: ${{ secrets.PLAYERDATA_EMAIL }}
+          PLAYERDATA_PASSWORD: ${{ secrets.PLAYERDATA_PASSWORD }}
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+        run: node scripts/fetch-playerdata.mjs
+
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

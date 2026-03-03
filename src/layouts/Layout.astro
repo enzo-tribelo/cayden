@@ -1,0 +1,66 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const { title, description = "Olly Robinson — Attacking Forward / Striker. 164 goals, 92 assists in 114 youth games. Bath City U18 & Melksham Town.", ogImage } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, 'https://or9.uk');
+const ogImageURL = ogImage ? new URL(ogImage, 'https://or9.uk').href : new URL('/photos/number9-back.jpg', 'https://or9.uk').href;
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href={canonicalURL.href} />
+    <title>{title}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:site_name" content="Olly Robinson — OR9" />
+    <meta property="profile:first_name" content="Olly" />
+    <meta property="profile:last_name" content="Robinson" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ollyrobinson21" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#0c0c0c" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Font preloads -->
+    <link rel="preload" href="/fonts/oswald-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3QFWRWLLNG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3QFWRWLLNG');
+    </script>
+
+    <slot name="head" />
+  </head>
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-gold focus:text-pitch focus:px-4 focus:py-2 focus:rounded-sm focus:font-semibold">Skip to content</a>
+    <slot />
+  </body>
+</html>
