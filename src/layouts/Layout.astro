@@ -14,7 +14,7 @@ import '../styles/global.css';
 import { getPaletteCss } from '../lib/palettes';
 import { getEntry } from 'astro:content';
 const profileEntry = await getEntry('profile', 'profile');
-const paletteCss = getPaletteCss(profileEntry?.data?.palette ?? 'carbon-red');
+const paletteCss = getPaletteCss(profileEntry?.data?.palette ?? 'pitch-gold');
 ---
 
 <!doctype html>

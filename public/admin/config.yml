@@ -28,7 +28,7 @@ collections:
           - label: "Colour Palette"
             name: "palette"
             widget: "select"
-            default: "carbon-red"
+            default: "pitch-gold"
             options:
               - { label: "1 · Pitch & Gold", value: "pitch-gold" }
               - { label: "2 · Midnight Electric", value: "midnight-electric" }
