@@ -129,7 +129,13 @@ const seasonsWithXG = seasons.map(season => ({
     <!-- Giant shirt number -->
     <div class="absolute -right-20 top-1/2 -translate-y-1/2 font-['Oswald'] text-[40rem] font-bold text-white/[0.02] leading-none select-none hidden lg:block">9</div>
 
-    <Nav current="home" />
+    <Nav current="home" hideSections={[
+      ...(!hasAttributes ? ['Stats'] : []),
+      ...(!hasSeasons ? ['Seasons'] : []),
+      ...(!hasHonours ? ['Honours'] : []),
+      ...(galleryPhotos.length === 0 ? ['Gallery'] : []),
+      ...(!hasGps ? ['GPS'] : []),
+    ]} />
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 pt-20 sm:pt-32 pb-16 sm:pb-20 w-full">
       <div class="grid lg:grid-cols-[1fr_auto] gap-12 items-end">
