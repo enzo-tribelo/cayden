@@ -1,11 +1,14 @@
 name: "Cayden"
-position: "TBC"
-nationality: "British"
 dob: "2009"
-current_club: "TBC"
-clubs: []
-bio: "Profile coming soon."
-photo: ""
-instagram: ""
-twitter: ""
-youtube: ""
+height: "TBC"
+weight: "TBC"
+foot: "TBC"
+position: "TBC"
+location: "TBC"
+nationality: "British"
+current_clubs:
+  - "TBC"
+socials:
+  instagram: ""
+  x: ""
+  youtube: ""
